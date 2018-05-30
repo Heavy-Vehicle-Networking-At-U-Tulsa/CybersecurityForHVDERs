@@ -1,0 +1,8 @@
+
+# A Note About the Following EVITA Risk Analysis
+
+This report is generated from an attack tree threat (and fault) model developed for the esCAR 2018 paper, *Cybersecurity Considerations for Heavy Vehicle Event Data Recorders*. For the purposes of that paper: multiple, real-world impacts of non-representative EDR data were not considered. Instead, the simpler case of a single common attacker goal was considered. Furthermore, the impact of this single goal was not treated in any detail. Instead, placeholder values were used to focus on the detail of the model, yielding likelihoods of attacks & faults; ignoring -- for the time being -- their impacts.
+
+This simpler attacker goal does have an impact on the prioritization of mitigations that are derived from the EVITA analysis which follows. In future development of the model in *Cybersecurity Considerations for Heavy Vehicle Event Data Recorders*, or in other cases of Threat and Risk Assessments more generally, the list of mitigations is collected and prioritized based on the mitigation's chage of risk across a large set of goals. In which case the sorting can vary depending on the impacts assigned to the goals and there would also be follow-on sections to the below which would capture the mitigations relevant to each attacker objective in the list individually.
+
+Please treat the section that follows as an example of the possibile ways in which a risk analysis could yield lists of prioritized mitigations and not as a rigorous analysis of the mitigations which are the most valuable for the model developed and presented in *Cybersecurity Considerations for Heavy Vehicle Event Data Recorders*.

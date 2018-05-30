@@ -1,0 +1,2073 @@
+{
+  "attr": {
+    "attachment": {
+      "content": "<div><div><div>The root of the attack tree, or the objective of an attack on the HVEDR data is the final goal of discarding or omitting the digital evidence. If an attack is successful, then the digital data that was created by the HVEDR is not useful. As mentioned, the data must be trusted. Trust is built in layers around the data and requires procedural and mathematical methods to establish trust.</div><div><br></div><div>Violating trust in the data can be intentional or accidental. At first, one may consider these two descriptions as mutually exclusive, but a malicious act may be masked as accidental, which makes distinguishing between the two challenging. Instead, we approach the taxonomy of violating trust through different actions, as opposed to intents. This means the tree includes actions and mitigations that may affect the hardware, software, or forensic investigation procedure.&nbsp;</div><div><br></div><div>There are three broad results that render an HVEDR untrusted: the HVEDR data is not recoverable, not representative, or not attributable.</div></div><div><br></div></div><div>In this analysis, we do not have stakeholders with which to consult on the modeling of impacts of the attacker objectives. For the purposes of creating a simplified prioritization of the mitigations assigned in the model that follows, we will assign a simple: severity-1 in the financial impact vector component.</div><div><br></div>OBJECTIVE::<div><br></div><div>EVITA:: |0|0|1|0|0|0|0|0|0|<br></div><div></div>",
+      "contentType": "text/html"
+    }
+  },
+  "links": [],
+  "title": "Compromised HVEDR Data",
+  "ideas": {
+    "13": {
+      "title": "Not Attributable",
+      "attr": {
+        "attachment": {
+          "content": "<div>Attributing a digital record to a crash event requires at least a date, distance, or time record to corroborate the event. Some ECUs contain real-time clocks (RTC) that keep track of the calendar date and 24 hour time. These systems require a battery backup, usually in the form of a coin cell lithium battery. Time is tracked as the number of seconds from an epoch. ECUs rarely keep accurate time and are subject to drift. It is critical to capture the clock drift at the time of the forensic investigation, by comparing the ECU time to a known reference clock, like network time protocol, or GPS. Mileage is the odometer reading, however, some ECUs keep track of distance using different memory elements. One could track the high resolution vehicle distance of 5 meters per bit (J1939 SPN 917), whereas another record keeps track of distance in 0.125 km/bit increments (J1939 SPN 245). The hours of ECU runtime is also used to tie recorded events to a crash. If the amount of time an ECU runs after an event is attributable through a forensic process, then the event can be attributed. For example, if a ECU runtime is a few seconds ahead of the event, then its is event was likely from the crash that just took place. Only one of these are attribution points are needed to tie the event to the crash; therefore all of these (3.1-3.3) must be eliminated to be a successful attack.<br></div><div><br></div><div>Identifiers include engine serial number and vehicle identfier. These are important to tie the record to the vehicle. Often a photograph of the crash scene and a VIN inspection provides the necessary evidence. It is important to note that some ECUs allow the end user to customize the VIN, so the digital record may not match the chassis VIN. Engine replacements and glider kits also exist in heavy vehicles, which makes documenting the engine in the truck important.<br></div><div><br></div><div>The context for the crash deals with understanding the relationship between the investigation and the event in question. If the truck is driven since the event was set, the context of the crash may be important. This most often happens when someone examines only an HVEDR record without any other input information regarding the case.</div><div><br></div><div>SUBTREE::</div>",
+          "contentType": "text/html"
+        },
+        "style": {
+          "background": "#6495ED"
+        }
+      },
+      "ideas": {
+        "1": {
+          "title": "AND",
+          "attr": {
+            "attachment": {
+              "content": "",
+              "contentType": "text/html"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "Incorrect Date",
+              "attr": {
+                "attachment": {
+                  "content": "<div>Date and time from the real-time clock on board ECUs typically drift from the true time. Correlating timestamps from an HVEDR to external timestamps often requires an adjustment. The HVEDR time stamp can be subtracted from the reference time stamp to create a delta at the time of the investigation. This delta is then added back to the event trigger time to place the HVEDR record into the actual time. This adjusted time is often compared to first-responder records to establish attribution. To ensure the adjusted time is correct, both the ECU time and the external reference time must be genuine.<br></div><div><br></div>SUBTREE::",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#6495ED"
+                }
+              },
+              "ideas": {
+                "0.5": {
+                  "title": "Data Changed During Transmission (*)",
+                  "attr": {
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 647
+                },
+                "0.75": {
+                  "title": "Data Storage Archive Altered (*)",
+                  "attr": {
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 710
+                },
+                "1": {
+                  "title": "Subvert the EDR Clock",
+                  "attr": {
+                    "attachment": {
+                      "content": "SUBTREE::",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#6495ED"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Subvert the EDR Clock via Software Exploitation",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "Software Exploitation of an EDR Built-Into an ECM (Most Common)",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            }
+                          },
+                          "ideas": {
+                            "2": {
+                              "title": "Abuse or Exploitation of ECM Firmware",
+                              "attr": {
+                                "attachment": {
+                                  "content": "SUBTREE::",
+                                  "contentType": "text/html"
+                                },
+                                "style": {
+                                  "background": "#6495ED"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "AND",
+                                  "attr": {
+                                    "attachment": {
+                                      "content": "",
+                                      "contentType": "text/html"
+                                    }
+                                  },
+                                  "ideas": {
+                                    "1": {
+                                      "title": "Discover, Develop Abuse Command or Exploit Payload to ECM",
+                                      "attr": {
+                                        "attachment": {
+                                          "content": "<div><div class=\"page\" title=\"Page 4\">The subject of discovering and developing exploits (or abuses) for an interior component of a connected system is very broad and complex. Accurately modelling it and discussing justifications for the model would consume the pages of this analysis and then some. To keep the focus of this analysis on the subject of corruptions of EDR records we will simplify this subject to a single event and provide a conservative estimate of it's attacker difficulty.&nbsp;</div></div><div><br></div><div>Generally speaking, to successfully discover and develop exploits or abuses of the component, attackers will need to have a large amount of time, specialized skills and access to the implementation details of the target (which we will model as knowledge of the system). The attackers also will need some access to the inputs of the component to effect their attack -- which we model in a separate event.</div><div><br></div>EVITA:: |0|0|0|0|10|6|3|0|0",
+                                          "contentType": "text/html"
+                                        },
+                                        "style": {
+                                          "background": "#708090"
+                                        }
+                                      },
+                                      "ideas": {
+                                        "1": {
+                                          "title": "Mitigation: (EDR Systems SW) Make ECM Software More Resilient",
+                                          "attr": {
+                                            "attachment": {
+                                              "content": "<div></div>",
+                                              "contentType": "text/html"
+                                            },
+                                            "style": {
+                                              "background": "#008000"
+                                            }
+                                          },
+                                          "id": 444
+                                        }
+                                      },
+                                      "id": 507
+                                    },
+                                    "2": {
+                                      "title": "Send Arbitrary Vehicle Network (J1939 or J1587) Traffic",
+                                      "attr": {
+                                        "attachment": {
+                                          "content": "<div></div><div>SUBTREE::</div>",
+                                          "contentType": "text/html"
+                                        },
+                                        "style": {
+                                          "background": "#000080"
+                                        }
+                                      },
+                                      "ideas": {
+                                        "1": {
+                                          "title": "Send Vehicle Network Traffic With Physical Access",
+                                          "attr": {
+                                            "attachment": {
+                                              "content": "<div><div class=\"page\" title=\"Page 4\"><br class=\"Apple-interchange-newline\">&nbsp;Sending vehicle bus traffic onto a vehicle after a real event can be done by a proficient person in less than a day. As these are commercially available devices there is no special knowledge or equipment required. And finally we are assuming that these devices would be installed by those with physical access to the device, there is no windows of opportunity factor to model.<br></div></div><div><br></div>EVITA:: |0|0|0|0|1|3|0|0|0",
+                                              "contentType": "text/html"
+                                            },
+                                            "style": {
+                                              "background": "#708090"
+                                            }
+                                          },
+                                          "ideas": {
+                                            "1": {
+                                              "title": "Mitigation: (FI Process) Attributable Chain of Custody",
+                                              "attr": {
+                                                "attachment": {
+                                                  "content": "",
+                                                  "contentType": "text/html"
+                                                },
+                                                "style": {
+                                                  "background": "#008000"
+                                                }
+                                              },
+                                              "id": 487
+                                            },
+                                            "2": {
+                                              "title": "Mitigation: (FI Process) Look for Devices Attached to the Vehicle Network",
+                                              "attr": {
+                                                "style": {
+                                                  "background": "#008000"
+                                                }
+                                              },
+                                              "id": 575
+                                            }
+                                          },
+                                          "id": 486
+                                        },
+                                        "2": {
+                                          "title": "Send Vehicle Network Traffic With Remote SW Exploitation or Abuse of Connected Modules (e.g. Modems, Gateways, Telematics Units, ELDs)",
+                                          "attr": {
+                                            "attachment": {
+                                              "content": "",
+                                              "contentType": "text/html"
+                                            },
+                                            "style": {
+                                              "background": "#D3D3D3"
+                                            }
+                                          },
+                                          "ideas": {
+                                            "1": {
+                                              "title": "Discover, Develop Abuse Command or Exploit Payload to Connected Module",
+                                              "attr": {
+                                                "attachment": {
+                                                  "content": "<div><div class=\"page\" title=\"Page 4\">The subject of discovering and developing exploits (or abuses) for a connected system is very broad and complex. Accurately modelling it and discussing justifications for the model would consume the pages of this analysis and then some. To keep the focus of this analysis on the subject of corruptions of EDR records we will simplify this subject to a single event and provide a conservative estimate of it's attacker difficulty.&nbsp;</div></div><div><br></div><div>Generally speaking, to successfully discover and develop exploits or abuses of connected systems, attackers will need to have a large amount of time, specialized skills and access to the implementation details of the target (which we will model as knowledge of the system). The attackers also will need some access to the inputs of the system to effect their attack -- which we model in a separate event.</div><div><br></div>EVITA:: |0|0|0|0|10|6|3|0|0",
+                                                  "contentType": "text/html"
+                                                },
+                                                "style": {
+                                                  "background": "#708090"
+                                                }
+                                              },
+                                              "ideas": {
+                                                "1": {
+                                                  "title": "Mitigation: (Connected Vehicle Systems SW) Make Connected Systems Software More Resilient",
+                                                  "attr": {
+                                                    "attachment": {
+                                                      "content": "",
+                                                      "contentType": "text/html"
+                                                    },
+                                                    "style": {
+                                                      "background": "#008000"
+                                                    }
+                                                  },
+                                                  "id": 490
+                                                }
+                                              },
+                                              "id": 489
+                                            },
+                                            "2": {
+                                              "title": "Send Command or Payload to Connected Module",
+                                              "attr": {
+                                                "attachment": {
+                                                  "content": "<div><div class=\"page\" title=\"Page 4\">Sending data to a connected component of a vehicle system typically (assuming no mitigations have been put in place) does not require much time, expertise or special knowledge. It does, however, typically require some special access which we will model as a window of opportunity factor. And there will be specialized equipment necessary (e.g. for cell networks).</div></div><div class=\"page\" title=\"Page 4\"><br></div>EVITA:: |0|0|0|0|1|3|0|4|4",
+                                                  "contentType": "text/html"
+                                                },
+                                                "style": {
+                                                  "background": "#708090"
+                                                }
+                                              },
+                                              "ideas": {
+                                                "1": {
+                                                  "title": "Mitigation: (Connected Vehicle Systems) Restrict Access to Connected Module Remote Networks",
+                                                  "attr": {
+                                                    "attachment": {
+                                                      "content": "",
+                                                      "contentType": "text/html"
+                                                    },
+                                                    "style": {
+                                                      "background": "#008000"
+                                                    }
+                                                  },
+                                                  "id": 492
+                                                }
+                                              },
+                                              "id": 491
+                                            },
+                                            "3": {
+                                              "title": "Mitigation: (Connected Vehicle Systems SW) Includes Security Requirements to Prevent Sending Vehicle Network Traffic via Abuse or Exploitation of Connected Module SW",
+                                              "attr": {
+                                                "attachment": {
+                                                  "content": "",
+                                                  "contentType": "text/html"
+                                                },
+                                                "style": {
+                                                  "background": "#008000"
+                                                }
+                                              },
+                                              "id": 540
+                                            }
+                                          },
+                                          "id": 488
+                                        },
+                                        "3": {
+                                          "title": "Send Vehicle Network Traffic Via EDR Wireless Access Features",
+                                          "attr": {
+                                            "attachment": {
+                                              "content": "<div><div class=\"page\" title=\"Page 4\"><br class=\"Apple-interchange-newline\">Sending vehicle bus traffic to an EDR where it has been deployed with wireless access mechanisms can be done by an expert in less than a day. As these are commercially available devices there is no special knowledge or equipment required. And finally we are assuming that these devices would be installed by those with physical access to the device, there is no windows of opportunity factor to model.<br></div></div><div><br></div>EVITA:: |0|0|0|0|1|6|0|0|0",
+                                              "contentType": "text/html"
+                                            },
+                                            "style": {
+                                              "background": "#708090"
+                                            }
+                                          },
+                                          "ideas": {
+                                            "0.5": {
+                                              "title": "Mitigation: (FI Process) Attributable Chain of Custody (*)",
+                                              "attr": {
+                                                "attachment": {
+                                                  "content": "",
+                                                  "contentType": "text/html"
+                                                },
+                                                "style": {
+                                                  "background": "#90EE90"
+                                                }
+                                              },
+                                              "id": 495
+                                            },
+                                            "1": {
+                                              "title": "Mitigation: (FI Process) Remove or Disconnect the Associated Wireless EDR Interfaces to the Vehicle",
+                                              "attr": {
+                                                "attachment": {
+                                                  "content": "",
+                                                  "contentType": "text/html"
+                                                },
+                                                "style": {
+                                                  "background": "#008000"
+                                                }
+                                              },
+                                              "id": 494
+                                            }
+                                          },
+                                          "id": 493
+                                        }
+                                      },
+                                      "id": 485
+                                    }
+                                  },
+                                  "id": 506
+                                }
+                              },
+                              "id": 505
+                            }
+                          },
+                          "id": 531
+                        },
+                        "2": {
+                          "title": "Software Exploitation of External EDR",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "Abuse or Exploitation of EDR Firmware",
+                              "attr": {
+                                "attachment": {
+                                  "content": "SUBTREE::",
+                                  "contentType": "text/html"
+                                },
+                                "style": {
+                                  "background": "#6495ED"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "AND",
+                                  "attr": {
+                                    "attachment": {
+                                      "content": "",
+                                      "contentType": "text/html"
+                                    }
+                                  },
+                                  "ideas": {
+                                    "1": {
+                                      "title": "Discover, Develop Abuse Command or Exploit Payload to EDR",
+                                      "attr": {
+                                        "attachment": {
+                                          "content": "<div><div class=\"page\" title=\"Page 4\">The subject of discovering and developing exploits (or abuses) for an interior component of a connected system is very broad and complex. Accurately modelling it and discussing justifications for the model would consume the pages of this analysis and then some. To keep the focus of this analysis on the subject of corruptions of EDR records we will simplify this subject to a single event and provide a conservative estimate of it's attacker difficulty.&nbsp;</div></div><div><br></div><div>Generally speaking, to successfully discover and develop exploits or abuses of the component, attackers will need to have a large amount of time, specialized skills and access to the implementation details of the target (which we will model as knowledge of the system). The attackers also will need some access to the inputs of the component to effect their attack -- which we model in a separate event.</div><div><br></div>EVITA:: |0|0|0|0|10|6|3|0|0",
+                                          "contentType": "text/html"
+                                        },
+                                        "style": {
+                                          "background": "#708090"
+                                        }
+                                      },
+                                      "ideas": {
+                                        "1": {
+                                          "title": "Mitigation: (EDR Systems SW) Make EDR Software More Resilient",
+                                          "attr": {
+                                            "attachment": {
+                                              "content": "",
+                                              "contentType": "text/html"
+                                            },
+                                            "style": {
+                                              "background": "#008000"
+                                            }
+                                          },
+                                          "id": 537
+                                        }
+                                      },
+                                      "id": 536
+                                    },
+                                    "2": {
+                                      "title": "Send Arbitrary Vehicle Network (J1939 or J1587) Traffic (*)",
+                                      "attr": {
+                                        "attachment": {
+                                          "content": "",
+                                          "contentType": "text/html"
+                                        },
+                                        "style": {
+                                          "background": "#FFFFFF"
+                                        }
+                                      },
+                                      "id": 538
+                                    }
+                                  },
+                                  "id": 535
+                                }
+                              },
+                              "id": 534
+                            }
+                          },
+                          "id": 533
+                        },
+                        "3.5": {
+                          "title": "Mitigation: (EDR Systems SW) Include Security Requirements to Prevent EDR Clock Subversion via Abuse or Exploitation of EDR SW",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#008000"
+                            }
+                          },
+                          "id": 527
+                        }
+                      },
+                      "id": 526
+                    }
+                  },
+                  "id": 530
+                },
+                "2": {
+                  "title": "Subvert the Reference Clock (i.e. FI's PC Clock)",
+                  "attr": {
+                    "attachment": {
+                      "content": "",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#D3D3D3"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Malware on FI's Computers",
+                      "attr": {
+                        "attachment": {
+                          "content": "<div><div class=\"page\" title=\"Page 4\">The subject of deploying targeted malware to be deployed on an FI computer is also very broad an complex. As was also the case with *Discover, Develop Abuse Command or Exploit Payload to EDR (*)* we will need to simplify the model for the purposes of this analysis. There are multiple options available to an attacker that seeks to deploy malware for the purposes of tampering with the EDR process. First, the attacker could develop malware specifically for this purpose, in which case this attack difficulty would look very much like *Discover, Develop Abuse Command or Exploit Payload to EDR (*)*; it is more likely, however, that the attacker would purchase toolkits for creating malware for PCs. In this later scenario less expertise and time is is required.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">Because the access to these malware toolkits for PCs by attackers is possible and different that the above previously considered conditions we elect to model it here.</div></div><div><br></div><div>For an attacker to successfully use a malware toolkit to deploy malware to an FI's PC they wouldn't need more than proficiency (to use the existing tools) and a modest amount of time. There would however, be specialized equipment required (the toolkit) and access to an input of the FI's computer -- as this could simply be email this won't be modelled with more than a minor window of opportunity factor.</div><div><br></div>EVITA:: |0|0|0|0|4|3|0|4|4",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#708090"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "Mitigation: (FI Process) Safe Operating Procedures with Analysis Computers (e.g. up-to-date OS etc.)",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#008000"
+                            }
+                          },
+                          "id": 512
+                        },
+                        "2": {
+                          "title": "Mitigation: (FI Process) FI System & Software with Verifiable Integrity of Programs, incl. DLLs",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#008000"
+                            }
+                          },
+                          "id": 513
+                        }
+                      },
+                      "id": 511
+                    },
+                    "2": {
+                      "title": "Mitigation: (FI Process) Use Additional Available Time Reference Standards (e.g. GPS)",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 648
+                    }
+                  },
+                  "id": 510
+                },
+                "3": {
+                  "title": "Misinterpret Time Stamps",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* misinterpretation. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">Treating all times as UTC help mitigate misinterpretation of times due to timezones. Using GPS as a clock source increases the difficulty of altering the reference time on a PC.<br></div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">Misinterpreting the timestamps does not require special skill, knowledge or long periods of time. Nor does it require any specialized equipment or windows of opportunity.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (FI Process) Ongoing Training / Accreditation of FI for Assurance of Process Quality",
+                      "attr": {
+                        "attachment": {
+                          "content": "<div></div>",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 382
+                    },
+                    "2": {
+                      "title": "Mitigation: (EDR Systems SW) Use UTC for all Timestamps",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 570
+                    }
+                  },
+                  "id": 514
+                },
+                "4": {
+                  "title": "Power-Loss of RTC Battery",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* depletion of the RTC battery of an EDR. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (EDR Systems HW) Include Sufficient Internal Energy Storage",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 517
+                    },
+                    "2": {
+                      "title": "Mitigation: (EDR Systems SW & HW) Use Other Available Time Reference Standards",
+                      "attr": {
+                        "attachment": {
+                          "content": "e.g.&nbsp;Use GPS to set the system real time to maintain accurate time keeping. This way, the reserve required for the ECUs RTC can be depleted, but the HVEDR still has the correct time.",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 572
+                    },
+                    "3": {
+                      "title": "Mitigation: (FI Process) Manually Adjust Timestamps",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 644
+                    }
+                  },
+                  "id": 516
+                },
+                "5": {
+                  "title": "Clock Drift",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* clock-drift of an EDR. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (FI Process) Compensate for Clock Drift in Timestamps",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 646
+                    }
+                  },
+                  "id": 645
+                }
+              },
+              "id": 416
+            },
+            "2": {
+              "title": "Incorrect Distance",
+              "attr": {
+                "attachment": {
+                  "content": "SUBTREE::",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#6495ED"
+                }
+              },
+              "ideas": {
+                "0.5": {
+                  "title": "Data Changed During Transmission (*)",
+                  "attr": {
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 649
+                },
+                "0.75": {
+                  "title": "Data Storage Archive Altered (*)",
+                  "attr": {
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 701
+                },
+                "1": {
+                  "title": "Tamper Distance via Software Exploitation",
+                  "attr": {
+                    "attachment": {
+                      "content": "",
+                      "contentType": "text/html"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Abuse or Exploitation of HU SW",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "AND",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "Discover, Develop Abuse Command or Exploit Payload to HU",
+                              "attr": {
+                                "attachment": {
+                                  "content": "<div><div class=\"page\" title=\"Page 4\">The subject of discovering and developing exploits (or abuses) for an interior component of a connected system is very broad and complex. Accurately modelling it and discussing justifications for the model would consume the pages of this analysis and then some. To keep the focus of this analysis on the subject of corruptions of EDR records we will simplify this subject to a single event and provide a conservative estimate of it's attacker difficulty.&nbsp;</div></div><div><br></div><div>Generally speaking, to successfully discover and develop exploits or abuses of the component, attackers will need to have a large amount of time, specialized skills and access to the implementation details of the target (which we will model as knowledge of the system). The attackers also will need some access to the inputs of the component to effect their attack -- which we model in a separate event.</div><div><br></div>EVITA:: |0|0|0|0|10|6|3|0|0",
+                                  "contentType": "text/html"
+                                },
+                                "style": {
+                                  "background": "#708090"
+                                }
+                              },
+                              "ideas": {
+                                "1": {
+                                  "title": "Mitigation: (EDR Systems SW) Make HU Software More Resilient",
+                                  "attr": {
+                                    "attachment": {
+                                      "content": "",
+                                      "contentType": "text/html"
+                                    },
+                                    "style": {
+                                      "background": "#008000"
+                                    }
+                                  },
+                                  "id": 502
+                                }
+                              },
+                              "id": 501
+                            },
+                            "2": {
+                              "title": "Send Arbitrary Vehicle Network (J1939 or J1587) Traffic (*)",
+                              "attr": {
+                                "attachment": {
+                                  "content": "",
+                                  "contentType": "text/html"
+                                },
+                                "style": {
+                                  "background": "#FFFFFF"
+                                }
+                              },
+                              "ideas": {},
+                              "id": 503
+                            }
+                          },
+                          "id": 500
+                        }
+                      },
+                      "id": 499
+                    },
+                    "2": {
+                      "title": "Mitigation: (EDR Systems SW) Include Requirements to Prevent Distance Tampering via Abuse or Exploitation of HU SW",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 542
+                    }
+                  },
+                  "id": 541
+                },
+                "2.25": {
+                  "title": "Mitigation: (FI Process) Resolve Odometer With Network Saves",
+                  "attr": {
+                    "style": {
+                      "background": "#008000"
+                    }
+                  },
+                  "id": 656
+                }
+              },
+              "id": 417
+            },
+            "3": {
+              "title": "Incorrect Hours",
+              "attr": {
+                "attachment": {
+                  "content": "SUBTREE::",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#6495ED"
+                }
+              },
+              "ideas": {
+                "0.5": {
+                  "title": "Data Changed During Transmission (*)",
+                  "attr": {
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 650
+                },
+                "0.75": {
+                  "title": "Data Storage Archive Altered (*)",
+                  "attr": {
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 702
+                },
+                "1": {
+                  "title": "Tamper Hours via Software Exploitation",
+                  "attr": {
+                    "attachment": {
+                      "content": "",
+                      "contentType": "text/html"
+                    }
+                  },
+                  "ideas": {
+                    "1.5": {
+                      "title": "Abuse or Exploitation of ECM Firmware (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#FFFFFF"
+                        }
+                      },
+                      "id": 711
+                    },
+                    "2": {
+                      "title": "Mitigation: (EDR Systems SW) Include Requirements to Prevent Hours Tampering via Abuse or Exploitation of ECM SW",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 544
+                    }
+                  },
+                  "id": 543
+                },
+                "2": {
+                  "title": "Leave Key Switch on or Engine Running",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div class=\"page\" title=\"Page 4\">It would be trivial for someone to non-maliciously (or otherwise) leave the key switch on or the engine running after the real event.</div></div><div class=\"page\" title=\"Page 4\"><br></div>EVITA:: |0|0|0|0|0|0|0|0|0",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (FI Process) Timeliness of Extraction (e.g. No Driving) (*)",
+                      "attr": {
+                        "style": {
+                          "background": "#90EE90"
+                        }
+                      },
+                      "id": 658
+                    }
+                  },
+                  "id": 657
+                },
+                "3": {
+                  "title": "Mitigation: (FI Process) Compare the Various Different Tags That Represent Engine Time",
+                  "attr": {
+                    "attachment": {
+                      "content": "Compare the different tags that keep track of runtime: Total Engine Hours, Total Vehicle Hours, Trip Time, Diagnostic Clock, ECU hours, etc. Since most of these values are stored in the ECU, affecting them will require attacks to the memory of the ECU or alteration after the fact.",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#008000"
+                    }
+                  },
+                  "id": 574
+                }
+              },
+              "id": 418
+            },
+            "4": {
+              "title": "Missing Identifiers",
+              "attr": {
+                "attachment": {
+                  "content": "<div>ECU identifiers are typically not changeable by the end user, therefore, memory access to the HVEDR would be necessary to alter these data fields. Other attacks could paralle</div><div>l those where data is altered after being recorded. The most common issue is failing to correlate the engine serial number with the vehicle in question. For example, a DDEC Reports does not have a VIN in</div><div>the report, instead, it reports the engine serial number. Therefore, the forensic investigator must attest to the connection between the engine and the chassis.</div><div><br></div><div>SUBTREE::</div>",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#6495ED"
+                }
+              },
+              "ideas": {
+                "0.5": {
+                  "title": "Data Changed During Transmission (*)",
+                  "attr": {
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 668
+                },
+                "0.625": {
+                  "title": "Data Storage Archive Altered (*)",
+                  "attr": {
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 703
+                },
+                "0.75": {
+                  "title": "Tamper Identifiers via Software Exploitation",
+                  "ideas": {
+                    "1": {
+                      "title": "Software Exploitation of an EDR Built-Into an ECM (Most Common) (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#FFFFFF"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 671
+                    },
+                    "2": {
+                      "title": "Software Exploitation of External EDR (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#FFFFFF"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 689
+                    },
+                    "4": {
+                      "title": "Mitigation: (EDR Systems SW) Include Requirements to Prevent Identifiers Tampering via Abuse or Exploitation of EDR SW",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 696
+                    }
+                  },
+                  "id": 669
+                },
+                "1.75": {
+                  "title": "Mitigation: (FI Process) Photograph the physical HVEDR in-situ With Identifiers",
+                  "attr": {
+                    "style": {
+                      "background": "#008000"
+                    }
+                  },
+                  "id": 697
+                }
+              },
+              "id": 419
+            },
+            "5": {
+              "title": "Insufficient Context",
+              "attr": {
+                "attachment": {
+                  "content": "SUBTREE::",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#6495ED"
+                }
+              },
+              "ideas": {
+                "1": {
+                  "title": "Obfuscated Context",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* loss of context of the real event. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\"><div class=\"page\" title=\"Page 4\">This type of attack is typically procedural in that we are assuming the information could have been available at one time. The context of the HVEDR data is all the data surrounding the HVEDR record. The description of the crash, description of the vehicles, and procedure of acquiring information.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">The context of the crash is important for proper attribution. For example, if there are multiple heavy vehicles involved in a crash, like an interstate pile-up, where some HVDERs are the same make and model with the same real-time stamp, correctly identifying the digital record to the correct vehicle is important. Making claims using only digital records is an attack on the context of the record.</div></div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0<br></div>",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (FI Process) Use Other Forensic Evidence to Properly Correlate EDR Records to Correct Vehicle and Event",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 698
+                    }
+                  },
+                  "id": 498
+                }
+              },
+              "id": 420
+            }
+          },
+          "id": 414
+        }
+      },
+      "id": 411
+    },
+    "23": {
+      "title": "Not Representative",
+      "attr": {
+        "attachment": {
+          "content": "<div><div>HVEDR data that is not representative of an event can be misleading and violate the notion of trust necessary for the courts. The following examples demonstrate how these attacks on the digital data can manifest.</div><div><br></div><div>Incorrect recordings deal with the notion that an ECU can incorrectly translate sensor data into engineering units. Sometimes this can be from a configuration change, like gearing or tire size, that would skew the data based on an incorrect calibration. A more deliberate alteration would be to use a device like a GPS jammer, or a vehicle speed sensor adjuster to change the data being recorded by the ECU. Most, if not all, fielded HVEDRs systems faithfully report the information it receives without question. Thus, sensor inputs are considered trustworthy by the EDR. Tampering with or compromising with sensor inputs will affect data before the event, and may be apparent in other operational data. For example, GPS speeds coul deviate from vehicle speed if the VSS signal is compromised. Wear and wiring issues may also compromise sensor input.</div><div><br></div><div>Sometimes the data recorded in the ECU and the translation of the binary data to engineering units is not correct. The most well known instances of this attack is misrepresenting the HVEDR data sampling rates in some Caterpillar Snapshot Data [Austin 2010] and some Cummins Sudden Deceleraton Data [SEA Limited]. In these scenarios, the mitigation is to perform externally referenced testing on similar make and model ECUs to properly characterizing these behaviors. Some people may refer to these as anomalies, however, an anomaly is often not repeatable, so a better term may be more appropriate. The hexadecimal translation tool, which is being used as forensic software, has a database to map the binary network data to engineering units. Altering this database is an attack on the data as not being representative of the actual event.</div><div><br></div><div>Changing the data during transmission from the ECU to the hex translation tool usually involves transmission of the data on a vehicle network to a vehicle diagnostic adapter where the VDA will convert the message(s) into serialized data (USB or Ethernet). This PC friendly serial data is received by a device driver and served to a tool using the RP1210 API and an interprocess communication. This line of data transmission and the multiple network interfaces required to retrieve the data provide attack surfaces where the data can be altered.</div><div><br></div><div>In older J1708 networks, the data transmission is protected using an eight-bit checksum at the end of each message. This is insufficient to protect against inadvertent bit flipping caused by external noise induced in the signals. CAN, however, uses a 15-bit cyclic redundancy check to virtually guarantee the correct transmission of data over a network.</div><div><br></div><div>Once data is retrieved and stored, a file will likely exist on the forensic investigator's computer. If the ECU is put back into service and/or the data is overwritten, then the aforementioned file becomes the original source of evidence, which is subject to alteration. In some cases, an alteration is necessary. For example, a Detroit Diesel XTR file for DDEC Reports may have issues being interpreted if the date information is incorrect due to a low battery for the ECU's real time clock. Changing the bytes to affect the date in the file has a positive effect of enabling further interpretation of Hard Brake and Last Stop records by the DDEC Reports software. However, there is no mathematical method by which to verify the original authenticity of the file. This means other records could also be altered, like the recorded speed.</div><div><br></div><div>Many systems do not specify or store any original binary file and use PDF, HTML, or XML files to store these data. Some may include a checksum in the file to check tampering, but most do not. Therefore, it is strongly recommended that forensic investigators digitally sign original forensic files and obtain permission to perform any file manipulations.</div></div><div><br></div><div>SUBTREE::<br></div>",
+          "contentType": "text/html"
+        },
+        "style": {
+          "background": "#6495ED"
+        }
+      },
+      "ideas": {
+        "1": {
+          "title": "Data Recorded Incorrectly",
+          "attr": {
+            "attachment": {
+              "content": "An incorrect recording is a result of one of the following subtrees show in the figure above. There are two types of sources for data, one being the network and the other being sensors. For example, an engine control module with HVEDR functionality can be programmed to accept vehicle speed data from a vehicle speed sensor (VSS), which is uses a magnetic pickups sensor monitoring a tone ring on the tailshaft to determine vehicle speed, or it can be programmed to determine speed from a J1939 source, like the transmission controller.<div><br></div><div>Incorrectly recorded data happens whenever the interpreted binary does not match the physical phenomena it is reporting. Determining this vulnerability requires testing of the physical phenomena with external reference instrumentation.<br></div><div><br></div><div>SUBTREE::</div>",
+              "contentType": "text/html"
+            },
+            "style": {
+              "background": "#6495ED"
+            }
+          },
+          "ideas": {
+            "1.25": {
+              "title": "Sensor Data is Corrupt",
+              "ideas": {
+                "1": {
+                  "title": "MiTM ECM Sensor Inputs with Aftermarket Device (*)",
+                  "attr": {
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 591
+                },
+                "2": {
+                  "title": "Sensor Data Corruption due to Wear and Wiring",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* EDR data corruption sensor wear and wiring. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0<div></div>",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {},
+                  "id": 618
+                }
+              },
+              "id": 589
+            },
+            "2": {
+              "title": "Network Data is Missing",
+              "attr": {
+                "attachment": {
+                  "content": "SUBTREE::",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#6495ED"
+                }
+              },
+              "ideas": {
+                "0.5": {
+                  "title": "Unplug EDR",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div>\n\t\t\n\t\n\t\n\t\t<div class=\"page\" title=\"Page 4\">Disconnecting an EDR from the vehicle network requires no special equipment or expertise; however, some special knowledge of the vehicle is required to know which device to disconnect. And finally we are assuming that this would be done by those with physical access to the device, there is no windows of opportunity factor to model.</div></div><div><br></div>EVITA:: |0|0|0|0|1|3|3|0|0",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (FI Process) Inspection of Vehicle (Network and Sensors) (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#90EE90"
+                        }
+                      },
+                      "id": 707
+                    }
+                  },
+                  "id": 706
+                },
+                "1": {
+                  "title": "Deny or Mask Network Data via Abuse or Exploitation of EDR SW",
+                  "attr": {
+                    "attachment": {
+                      "content": "",
+                      "contentType": "text/html"
+                    }
+                  },
+                  "ideas": {
+                    "3": {
+                      "title": "Software Exploitation of an EDR Built-Into an ECM (Most Common) (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#FFFFFF"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 558
+                    },
+                    "3.25": {
+                      "title": "Software Exploitation of External EDR (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#FFFFFF"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 559
+                    },
+                    "3.5": {
+                      "title": "Mitigation: (EDR Systems SW) Include Requirements to Prevent Network Data Denial via Abuse or Exploitation of EDR SW",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 547
+                    }
+                  },
+                  "id": 545
+                },
+                "2": {
+                  "title": "Deny or Mask Network Data via Abuse of Vehicle Network Transport",
+                  "ideas": {
+                    "1": {
+                      "title": "Send Arbitrary Vehicle Network (J1939 or J1587) Traffic (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#FFFFFF"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 586
+                    }
+                  },
+                  "id": 585
+                }
+              },
+              "id": 430
+            },
+            "16": {
+              "title": "EDR Calibration or Interpretation is Off",
+              "attr": {
+                "attachment": {
+                  "content": "SUBTREE::",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#6495ED"
+                }
+              },
+              "ideas": {
+                "0.5": {
+                  "title": "Change Vehicle Gearing or Tire Size Without Modification of Calibration",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* omission of the step of modifying EDR calibrations after repairs or vehicle changes. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (FI Process) Look for Signs or Repair and Document Tire Size",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 709
+                    }
+                  },
+                  "id": 708
+                },
+                "1": {
+                  "title": "Modification of EDR Calibrations via Conventional Means",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* EDR calibrations modification using the conventional tools or interfaces. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (EDR Systems SW) Access Controls on Calibrations Modifications",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 595
+                    }
+                  },
+                  "id": 592
+                },
+                "2": {
+                  "title": "Modification of EDR Calibrations via Abuse or Exploitation of EDR SW",
+                  "ideas": {
+                    "1": {
+                      "title": "Software Exploitation of an EDR Built-Into an ECM (Most Common) (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#FFFFFF"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 597
+                    },
+                    "2": {
+                      "title": "Software Exploitation of External EDR (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#FFFFFF"
+                        }
+                      },
+                      "ideas": {},
+                      "id": 598
+                    },
+                    "3": {
+                      "title": "Mitigation: (EDR Systems SW) Include Requirements to Prevent Calibration Modifications via Abuse or Exploitation of EDR SW",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 599
+                    }
+                  },
+                  "id": 596
+                }
+              },
+              "id": 584
+            },
+            "17": {
+              "title": "Mitigation: (FI Process) Document Tire Size and Calibration Constants for Matching Engine RPM to Vehicle Speeds",
+              "attr": {
+                "style": {
+                  "background": "#008000"
+                }
+              },
+              "id": 699
+            }
+          },
+          "id": 421
+        },
+        "1.5": {
+          "title": "Data Changed During Transmission",
+          "attr": {
+            "attachment": {
+              "content": "SUBTREE::",
+              "contentType": "text/html"
+            },
+            "style": {
+              "background": "#6495ED"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "Changed During Transmission on Vehicle Network",
+              "ideas": {
+                "1": {
+                  "title": "Abuse of Transmission Protocol on Vehicle Network",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div>SUBTREE::</div>",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#6495ED"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "AND",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "Discover, Develop Abuse Vehicle Network Traffic",
+                          "attr": {
+                            "attachment": {
+                              "content": "<div><div class=\"page\" title=\"Page 4\">The subject of discovering and developing exploits (or abuses) for a protocol is very broad and complex. Accurately modelling it and discussing justifications for the model would consume the pages of this analysis and then some. To keep the focus of this analysis on the subject of corruptions of EDR records we will simplify this subject to a single event and provide a conservative estimate of it's attacker difficulty.&nbsp;</div></div><div><br></div><div>Generally speaking, to successfully discover and develop abuses of a protocol, attackers will need to have a large amount of time, specialized skills and access to the implementation details of the target (which we will model as knowledge of the system). The attackers also will need some access to the medium over which the protocol is implemented to effect their attack -- which we model in a separate event.</div><div><br></div>EVITA:: |0|0|0|0|10|6|3|0|0",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#708090"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "Mitigation: (EDR Systems SW) Make Vehicle Network Protocols More Resilient to Tampering",
+                              "attr": {
+                                "attachment": {
+                                  "content": "",
+                                  "contentType": "text/html"
+                                },
+                                "style": {
+                                  "background": "#008000"
+                                }
+                              },
+                              "id": 469
+                            }
+                          },
+                          "id": 467
+                        },
+                        "2": {
+                          "title": "Send Arbitrary Vehicle Network (J1939 or J1587) Traffic (*)",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 468
+                        }
+                      },
+                      "id": 466
+                    },
+                    "2": {
+                      "title": "Mitigation: (EDR Systems SW) Include Requirements to Prevent Tampering of EDR Data During Download",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 565
+                    }
+                  },
+                  "id": 465
+                }
+              },
+              "id": 621
+            },
+            "1.25": {
+              "title": "Changed During Transmission at the Diagnostics Port",
+              "ideas": {
+                "1": {
+                  "title": "Installation of Aftermarket Man-in-the-Middle Device",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div class=\"page\" title=\"Page 4\">Installation of a MiTM diagnostics device can be done by a proficient person in less than a day. It isn't clear if these are commercially available devices -- but we will assume so to err on the side of caution in the analysis. There is no special knowledge or equipment required. And finally we are assuming that these devices would be installed by those with physical access to the device, there is no windows of opportunity factor to model.<br></div></div><div><br></div>EVITA:: |0|0|0|0|1|3|0|0|0",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (FI Process) Inspection of Vehicle (Network and Sensors)",
+                      "attr": {
+                        "attachment": {
+                          "content": "The FI should inspect the vehicle for any signs of<div><br></div><div>* additional devices on the vehicle network</div><div>* additional devices on the sensor inputs to the ECM</div><div>* removal of vehicle network connections</div><div>* removal of ECM sensor inputs</div>",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 642
+                    }
+                  },
+                  "id": 641
+                }
+              },
+              "id": 640
+            },
+            "1.5": {
+              "title": "Changed During Transmission at VDA",
+              "ideas": {
+                "1": {
+                  "title": "VDA Firmware Upgrade Tampering",
+                  "attr": {
+                    "attachment": {
+                      "content": "<div><div class=\"page\" title=\"Page 4\">The subject of tampering the firmware for a VDA -- or any embedded device -- is broad an complex. Accurately modelling it and discussing justifications for the model would bloat the pages of this analysis. To keep the focus of this analysis on the subject of corruptions of EDR records we will simplify this subject to a single event and provide a conservative estimate of its attacker difficulty.</div></div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">Generally speaking, to successfully tamper firmware for an embedded device, attackers need to obtain the firmware contents (clear or unencrypted), understand the firmware enough to be able to make a change to it and then be able to write this firmware to the device and have the device 'accept' this firmware in the form of either an upgrade procedure or simply booting it. This does require expertise, specialized skills and access to the implementation details of the target.</div><div class=\"page\" title=\"Page 4\"><br></div>EVITA:: |0|0|0|0|10|6|3|0|0",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#708090"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Mitigation: (VDA Systems SW) VDA Firmware Contents are Confidential When at Rest",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 637
+                    },
+                    "2": {
+                      "title": "Mitigation: (VDA Systems HW & SW) VDA Accepts only Firmwares for Upgrade Steps That it can Verify as Authentic",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 638
+                    }
+                  },
+                  "id": 625
+                },
+                "2": {
+                  "title": "Software Abuse or Exploitation of VDA",
+                  "attr": {
+                    "attachment": {
+                      "content": "SUBTREE::",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#6495ED"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "AND",
+                      "ideas": {
+                        "1": {
+                          "title": "Discover, Develop Abuse or Exploit of VDA Firmware",
+                          "attr": {
+                            "attachment": {
+                              "content": "<div><div class=\"page\" title=\"Page 4\">The subject of discovering and developing exploits (or abuses) for an embedded device such as a VDA is very broad and complex. Accurately modelling it and discussing justifications for the model would consume the pages of this analysis and then some. To keep the focus of this analysis on the subject of corruptions of EDR records we will simplify this subject to a single event and provide a conservative estimate of it's attacker difficulty.&nbsp;</div></div><div><br></div><div>Generally speaking, to successfully discover and develop exploits or abuses of the embedded device, attackers will need to have a large amount of time, specialized skills and access to the implementation details of the target (which we will model as knowledge of the system). The attackers also will need some access to the inputs of the component to effect their attack -- which we model in a separate event.</div><div><br></div>EVITA:: |0|0|0|0|10|6|3|0|0",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#708090"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "Mitigation: (VDA Systems SW) Make VDA Firmware More Resilient",
+                              "attr": {
+                                "style": {
+                                  "background": "#008000"
+                                }
+                              },
+                              "id": 635
+                            }
+                          },
+                          "id": 629
+                        },
+                        "2": {
+                          "title": "Send Arbitrary Vehicle Network (J1939 or J1587) Traffic (*)",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 631
+                        },
+                        "4": {
+                          "title": "Malware on FI's Computers (*)",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "id": 633
+                        }
+                      },
+                      "id": 628
+                    }
+                  },
+                  "id": 626
+                }
+              },
+              "id": 620
+            },
+            "2": {
+              "title": "Changed During Transmission on FI's Computer",
+              "ideas": {
+                "1": {
+                  "title": "Shimming of the RP1210 DLL",
+                  "ideas": {
+                    "1": {
+                      "title": "Malware on FI's Computers (*)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#FFFFFF"
+                        }
+                      },
+                      "id": 524
+                    },
+                    "2": {
+                      "title": "Mitigation: (VDA Systems SW) VDA with Forensic Extractions",
+                      "attr": {
+                        "attachment": {
+                          "content": "e.g. Forensic Link Adapter",
+                          "contentType": "text/html"
+                        },
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 659
+                    },
+                    "3": {
+                      "title": "Mitigation: (VDA Systems SW) Prevent DLL Shimming",
+                      "attr": {
+                        "style": {
+                          "background": "#008000"
+                        }
+                      },
+                      "id": 661
+                    }
+                  },
+                  "id": 639
+                }
+              },
+              "id": 622
+            },
+            "3": {
+              "title": "Mitigation: (EDR Systems HW & SW) Verifiable Integrity of EDR Records Traceable to the EDR",
+              "attr": {
+                "style": {
+                  "background": "#008000"
+                }
+              },
+              "id": 624
+            }
+          },
+          "id": 423
+        },
+        "2": {
+          "title": "Hex Translation Incorrect",
+          "attr": {
+            "attachment": {
+              "content": "Sometimes the data recorded in the ECU and the translation of the binary data to engineering units is not correct. The most well known instances of this attack is misrepresenting the HVEDR data sampling rates in some Caterpillar Snapshot Data [Austin 2010] and some Cummins Sudden Deceleraton Data [SEA Limited]. In these scenarios, the mitigation is to perform externally referenced testing on similar make and model ECUs to properly characterizing these behaviors. Some people may refer to these as anomalies, however, an anomaly is often not repeatable, so a better term may be more appropriate. The hexadecimal translation tool, which is being used as forensic software, has a database to map the binary network data to engineering units. Altering this database is an attack on the data as not being representative of the actual event.<div><br></div><div>SUBTREE::</div>",
+              "contentType": "text/html"
+            },
+            "style": {
+              "background": "#6495ED"
+            }
+          },
+          "ideas": {
+            "0.25": {
+              "title": "Incorrect Translation by Hex Translation Tool Due to Software Error or Fault",
+              "attr": {
+                "attachment": {
+                  "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* data translation due to software fault. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#708090"
+                }
+              },
+              "ideas": {
+                "1": {
+                  "title": "Mitigation: (FI Process) Perform Externally-Referenced Testing on Similar Make and Model ECUs",
+                  "attr": {
+                    "style": {
+                      "background": "#008000"
+                    }
+                  },
+                  "id": 583
+                }
+              },
+              "id": 582
+            },
+            "0.5": {
+              "title": "Tamper with Hex Translation Tool's Mapping Databases on PC",
+              "ideas": {
+                "1": {
+                  "title": "Malware on FI's Computers (*)",
+                  "attr": {
+                    "attachment": {
+                      "content": "",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "id": 581
+                },
+                "2": {
+                  "title": "Mitigation: (Hex Translation Tool) Verifiable Integrity of Mapping Databases",
+                  "attr": {
+                    "style": {
+                      "background": "#008000"
+                    }
+                  },
+                  "id": 660
+                }
+              },
+              "id": 580
+            }
+          },
+          "id": 422
+        },
+        "4": {
+          "title": "Data Storage Archive Altered",
+          "attr": {
+            "attachment": {
+              "content": "TODO: Talk about the difference between tampering of the EDR Records and altering them for lawful analysis purposes. The ability to record all traffic, sign it and replay it mitigates the attack of the former and the ability to sign modifications as an FI enables the latter. The latter will not be a node in the tree because the tree models all events that can contribute (in part) to the event of \"Compromised EDR Data\".<div><br></div><div>Both the mitigations:</div><div>* *Mitigation: (EDR Systems HW &amp; SW) Verifiable Integrity of EDR Records Traceable to the EDR (*)*</div><div>* *Mitigation: (FI Process) Verifiable Integrity Recordings of all Vehicle Network Traffic During Download(*)*&nbsp;</div><div><br></div><div>Would be sufficient. But the first one will take a very long time to be implemented. In the meantime the situation can be improved with the second.</div><div><br></div><div>SUBTREE::</div>",
+              "contentType": "text/html"
+            },
+            "style": {
+              "background": "#6495ED"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "Tamper Records After Download",
+              "attr": {
+                "attachment": {
+                  "content": "<div><div class=\"page\" title=\"Page 4\">Altering already-downloaded data can be done by a proficient person in less than a day. There is some special knowledge required to understand how/what to alter but the task can be accomplished with standard equipment. There is a window of opportunity factor to consider (access to the data to be tampered) however, this was modelled in another event in the tree.</div></div><div><br></div>EVITA:: |0|0|0|0|1|3|3|0|0",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#708090"
+                }
+              },
+              "ideas": {},
+              "id": 458
+            },
+            "2": {
+              "title": "Malware on FI's Computers (*)",
+              "attr": {
+                "attachment": {
+                  "content": "",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#FFFFFF"
+                }
+              },
+              "id": 664
+            },
+            "3": {
+              "title": "Mitigation: (EDR Systems HW & SW) Verifiable Integrity of EDR Records Traceable to the EDR (*)",
+              "attr": {
+                "style": {
+                  "background": "#90EE90"
+                }
+              },
+              "id": 666
+            },
+            "4": {
+              "title": "Mitigation: (FI Process) Verifiable Integrity Recordings of all Vehicle Network Traffic During Download",
+              "attr": {
+                "style": {
+                  "background": "#008000"
+                }
+              },
+              "id": 667
+            }
+          },
+          "id": 424
+        }
+      },
+      "id": 412
+    },
+    "33": {
+      "title": "Not Recoverable",
+      "attr": {
+        "attachment": {
+          "content": "<div><div>The idea of data not being available&nbsp; to recover means that the HVEDR did create interesting data at one time, but the forensic recovery process was insufficient to obtain that data.&nbsp;</div><div><br></div><div>Clearly physical destruction of the memory contents is an issue when trying to recover digital data. Diesel fuel fires are particularly devastating when the ECU is consumed. The sudden loss of power during a crash is another issue regarding HVEDRs that may be beyond the control of a forensic investigator. For example, DDEC data requires a certain amount to time&nbsp; to pass after the event to finish a recording. If power is interrupted at that time, then the record does not get stored in memory. To mitigate this, the recording algorithms need to be tolerant of power loss with either reserve capacity or more rapid commitment to memory. Furthermore, the tool needs to be able to extract and interpret partial records that failed to complete due to the power loss.&nbsp;</div><div><br></div><div>An example of recovering partial records from HVEDRs was documented in [Daily 2016] where a power loss interrupted the recording algorithm in some Caterpillar ECMs and the traditional data extraction approach failed. Another issue related to the real time clock in Detroit Diesel ECMs no longer keeps track of the correct time. The DDEC Reports software, which is used to interpret the data, cannot handle the malformed date stamps, so the Hard Brake, Last Stop, and Daily Engine Usage Logs are not presented. Forensic processes need to be robust against these types of errors and still provide other pieces of information.</div><div><br></div><div>Many HVEDRs will trigger an event from a diagnostic trouble code (DTC). These DTC codes driven events may have time history data of vehicle operation before and after events. In some cases, these DTCs can be set as a result of the crash. For example, if the physical evidence shows the engine oil pan is compromised, then a low engine oil pressure DTC may be present along with it corresponding record.&nbsp;</div><div><br></div><div>The biggest threat to these DTC based HVEDR records is having the record overwritten with a new one. This is particularly important when the electrical system on the vehicle is compromised and the device with the HVEDR functionality is removed. If that module is the engine control module, then it will expect to see many sensors and actuators connected. If those are absent when the HVEDR is turned back on, then new fault codes will be written and potentially overwrite the ones that were generated from the crash. A forensic investigator will want to know what, if any, DTCs were present at or before the crash event.</div><div><br></div><div>Mitigating overwriting fault codes can be done with logic that doesn't overwrite code freeze frame data with new data. If examining legacy systems, then transplanting the HVEDR onto a surrogate vehicle can create a fault free environment. Finally, a sensor simulation system can be used to bring ECUs back online while simulating all of the sensors and signals it is expecting, thus not setting any new fault codes.</div><div><br></div><div>Data that is not recoverable is data that should be present, but there is no easy way to obtain the information. A forensic investigator must be a good troubleshooter at times to be able to overcome power and connectivity challenges that would take an HVEDR offline after a crash. For this discussion, we will assume that things that can be fixed are fixed.&nbsp;</div><div><br></div><div>Physical destruction of an HVEDR can make the data unrecoverable. Fire is the most damaging and destructive phenomenon. THe proximity of the HVEDR to fuel in some ECUs creates and environment where the hottest part of the fire will be near the HVEDR. In fact, some engine compartment ECUs use fuel to cool the electronics. Mounting the HVEDR in the cab can both reduce cost and provide better physical protections.</div><div><br></div><div>Other physical destruction of the HVEDR printed circuit board and connectors may render the HVEDR data irrecoverable through traditional means. However, some have show the ability to recover data from the memory contents of the chips themselves [Daily-2014]. Further modeling of this procedure is beyond the scope of this paper.</div><div><br></div><div>Physical destruction of the vehicle can also lead to system power loss. Experiments with Detroit Diesel and Mercedes HVEDRs show the loss of power after an event trigger prevented writing the HVEDR record to non-volatile memory. Arguably, the data was never present, but a strategy of waiting for all post-trigger data to be available makes the system less robust when dealing with events that lead to compromised electrical systems. Building an energy reserve, like a large capacitor, into the HVEDR would enable longer duration recording resulting in more robust data captures.&nbsp;</div><div><br></div><div>Some data is not recoverable due to the lack of proper permission. In US courts, the process of collecting evidence is scrutinized under the fourth amendment of the constitution. As such, forensic investigators should gather consent from the proper authority or obtain a search warrant from the courts. This aspect of making data not recoverable does not have a technical solution.</div></div><div><br></div><div>SUBTREE::</div>",
+          "contentType": "text/html"
+        },
+        "style": {
+          "background": "#6495ED"
+        }
+      },
+      "ideas": {
+        "1.25": {
+          "title": "Corruption",
+          "attr": {
+            "attachment": {
+              "content": "SUBTREE::",
+              "contentType": "text/html"
+            },
+            "style": {
+              "background": "#6495ED"
+            }
+          },
+          "ideas": {
+            "3.125": {
+              "title": "Power-Loss of RTC Battery (*)",
+              "attr": {
+                "style": {
+                  "background": "#FFFFFF"
+                }
+              },
+              "id": 643
+            },
+            "6.25": {
+              "title": "EDR Data Corruption via SW Error or Fault",
+              "attr": {
+                "attachment": {
+                  "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* EDR data corruption due to software fault. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0<div></div>",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#708090"
+                }
+              },
+              "ideas": {
+                "1": {
+                  "title": "Mitigation: (EDR Systems SW) High-Assurance SW Implementations (of EDR Data Recording Subroutines)",
+                  "attr": {
+                    "attachment": {
+                      "content": "",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#008000"
+                    }
+                  },
+                  "id": 616
+                }
+              },
+              "id": 615
+            },
+            "12.5": {
+              "title": "EDR Data Tampering via Software Exploitation",
+              "attr": {
+                "attachment": {
+                  "content": "<div></div>",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#D3D3D3"
+                }
+              },
+              "ideas": {
+                "1": {
+                  "title": "Software Exploitation of an EDR Built-Into an ECM (Most Common) (*)",
+                  "attr": {
+                    "attachment": {
+                      "content": "",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "ideas": {},
+                  "id": 603
+                },
+                "2": {
+                  "title": "Software Exploitation of External EDR (*)",
+                  "attr": {
+                    "attachment": {
+                      "content": "",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#FFFFFF"
+                    }
+                  },
+                  "ideas": {},
+                  "id": 604
+                }
+              },
+              "id": 602
+            }
+          },
+          "id": 437
+        },
+        "1.8125": {
+          "title": "Record Overwritten",
+          "attr": {
+            "attachment": {
+              "content": "SUBTREE::",
+              "contentType": "text/html"
+            },
+            "style": {
+              "background": "#6495ED"
+            }
+          },
+          "ideas": {
+            "2": {
+              "title": "Sufficient Number of Triggers (Last-Stop, Diagnostic, Acceleration, etc.) to Cause Overwrite of EDR Record Buffer",
+              "attr": {
+                "style": {
+                  "background": "#D3D3D3"
+                }
+              },
+              "ideas": {
+                "1": {
+                  "title": "Cause Trigger by Injecting Data into EDR",
+                  "attr": {
+                    "attachment": {
+                      "content": "SUBTREE::",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#6495ED"
+                    }
+                  },
+                  "ideas": {
+                    "1": {
+                      "title": "Injecting Data into an EDR Built-Into an ECM (Most Common)",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "MiTM ECM Sensor Inputs with Aftermarket Device",
+                          "attr": {
+                            "attachment": {
+                              "content": "<div>\n\t\t\n\t\n\t\n\t\t<div class=\"page\" title=\"Page 4\">Installation of a MiTM sensor device such as a speedpass pro can be done by a proficient person in less than a day. As these are commercially available devices there is no special knowledge or equipment required. And finally we are assuming that these devices would be installed by those with physical access to the device, there is no windows of opportunity factor to model.<br></div></div><div><br></div><div>Examples include the speedpass pro and GPS Jammer devices.</div><div><br></div>EVITA:: |0|0|0|0|1|3|0|0|0",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#708090"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "Mitigation: (FI Process) Inspection of Vehicle (Network and Sensors) (*)",
+                              "attr": {
+                                "attachment": {
+                                  "content": "",
+                                  "contentType": "text/html"
+                                },
+                                "style": {
+                                  "background": "#90EE90"
+                                }
+                              },
+                              "id": 609
+                            }
+                          },
+                          "id": 608
+                        },
+                        "2": {
+                          "title": "Injecting Data Into an EDR Built-Into an ECM via SW Exploitation or Abuse of the ECM",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            }
+                          },
+                          "ideas": {
+                            "1": {
+                              "title": "Abuse or Exploitation of ECM Firmware (*)",
+                              "attr": {
+                                "attachment": {
+                                  "content": "",
+                                  "contentType": "text/html"
+                                },
+                                "style": {
+                                  "background": "#FFFFFF"
+                                }
+                              },
+                              "id": 611
+                            }
+                          },
+                          "id": 610
+                        }
+                      },
+                      "id": 607
+                    },
+                    "2": {
+                      "title": "Injecting Data into an External EDR",
+                      "attr": {
+                        "attachment": {
+                          "content": "",
+                          "contentType": "text/html"
+                        }
+                      },
+                      "ideas": {
+                        "1": {
+                          "title": "Send Arbitrary Vehicle Network (J1939 or J1587) Traffic (*)",
+                          "attr": {
+                            "attachment": {
+                              "content": "",
+                              "contentType": "text/html"
+                            },
+                            "style": {
+                              "background": "#FFFFFF"
+                            }
+                          },
+                          "ideas": {},
+                          "id": 613
+                        }
+                      },
+                      "id": 612
+                    }
+                  },
+                  "id": 606
+                },
+                "2": {
+                  "title": "Mitigation: (EDR Systems SW) Log all Trigger Occurrence Timestamps in Tamper-Evident Storage",
+                  "attr": {
+                    "attachment": {
+                      "content": "",
+                      "contentType": "text/html"
+                    },
+                    "style": {
+                      "background": "#008000"
+                    }
+                  },
+                  "id": 614
+                }
+              },
+              "id": 605
+            },
+            "3": {
+              "title": "Mitigation: (FI Process) Timeliness of Extraction (e.g. No Driving)",
+              "attr": {
+                "style": {
+                  "background": "#008000"
+                }
+              },
+              "id": 617
+            },
+            "4": {
+              "title": "Mitigation: (FI Process) Use a Surrogate Truck or a Fault-Free Simulator to Prevent New Triggers",
+              "attr": {
+                "style": {
+                  "background": "#008000"
+                }
+              },
+              "id": 704
+            }
+          },
+          "id": 601
+        },
+        "2.375": {
+          "title": "Not Recorded (Power Loss)",
+          "attr": {
+            "attachment": {
+              "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* interruption of power to the EDR. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0",
+              "contentType": "text/html"
+            },
+            "style": {
+              "background": "#708090"
+            }
+          },
+          "ideas": {
+            "0.5": {
+              "title": "Mitigation: (EDR Systems SW) Maximize the Amount of Data Recoverable After a Power Loss",
+              "attr": {
+                "style": {
+                  "background": "#008000"
+                }
+              },
+              "id": 712
+            },
+            "1": {
+              "title": "Mitigation: (EDR Systems HW) Include Sufficient Internal Energy Storage (*)",
+              "attr": {
+                "style": {
+                  "background": "#90EE90"
+                }
+              },
+              "id": 579
+            }
+          },
+          "id": 577
+        },
+        "3.5": {
+          "title": "Physical Destruction",
+          "attr": {
+            "attachment": {
+              "content": "<div>To successfully destroy the EDR after a real event (but before the records could be downloaded) would not require any special expertise or knowledge, skill. It would require specialized equipment to access and/or remove the EDR and destroy it and also it would require physical access to the device.</div><div><br></div><div>EVITA:: |0|0|0|0|0|0|0|1|4|<br></div>",
+              "contentType": "text/html"
+            },
+            "style": {
+              "background": "#708090"
+            }
+          },
+          "ideas": {
+            "0.5": {
+              "title": "Mitigation: (EDR Systems HW) Hardened Device",
+              "attr": {
+                "style": {
+                  "background": "#008000"
+                }
+              },
+              "id": 576
+            },
+            "1": {
+              "title": "Mitigation: (FI Process) Attributable Chain of Custody (*)",
+              "attr": {
+                "attachment": {
+                  "content": "",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#90EE90"
+                }
+              },
+              "id": 436
+            }
+          },
+          "id": 435
+        },
+        "4": {
+          "title": "Lack of Permission",
+          "attr": {
+            "attachment": {
+              "content": "<div><div class=\"page\" title=\"Page 4\">In the case of this 'attack vector' we will be forcing the use of the attacker difficulties breakdown of common-criteria onto what is ostensibly a non-malicious event: an *accidental* lack of permission from the EDR owner for the FI to perform extraction of records. We include these events in the analysis because we want the list of mitigations we derive to be exhaustive: covering both mitigations against malicious and non- events.</div><div class=\"page\" title=\"Page 4\"><br></div><div class=\"page\" title=\"Page 4\">This event could happen independently of any characteristics of the FI -- we will model it as a trivial to achieve event.</div></div><div><br></div>EVITA:: |0|0|0|0|0|0|0|0|0",
+              "contentType": "text/html"
+            },
+            "style": {
+              "background": "#708090"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "Mitigation: (FI Process) Ensure Permission to Download Records is Acquirable from Owner",
+              "attr": {
+                "attachment": {
+                  "content": "",
+                  "contentType": "text/html"
+                },
+                "style": {
+                  "background": "#008000"
+                }
+              },
+              "id": 455
+            }
+          },
+          "id": 428
+        }
+      },
+      "id": 413
+    }
+  },
+  "formatVersion": 2,
+  "id": 1
+}

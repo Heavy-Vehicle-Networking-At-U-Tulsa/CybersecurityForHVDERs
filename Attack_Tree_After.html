@@ -1,0 +1,16 @@
+<svg id="container" width="2700" height="1060"></svg>
+
+<section class="footnotes">
+<hr>
+<p>generated using the <a href="https://github.com/BenGardiner/mindmup-as-attack-trees">mindmup-as-attack-trees tool</a></p>
+</section>
+
+<script >%%d3script%%</script>
+<script >%%keybinding%%</script>
+<script >%%mupcommon%%</script>
+<script type="application/json" id="mupdata">
+%%jsondata%%
+</script>
+<script>
+mup_init(JSON.parse(document.getElementById("mupdata").innerHTML), null);
+</script>

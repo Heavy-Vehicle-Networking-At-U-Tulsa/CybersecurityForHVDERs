@@ -1,0 +1,54 @@
+#!/bin/bash
+#make sure a checkout of https://github.com/BenGardiner/mindmup-as-attack-trees/scripts is in the PATH
+the_big_mup="Security_in_HD_Forensics.mup"
+
+die () {
+    echo "$@"
+    exit 1
+}
+
+READLINK=readlink
+if ! test -z "$(which greadlink 2>/dev/null)"; then #we need a useful readlink alternative on OSX
+    READLINK=greadlink
+fi
+
+rm -rf generated
+mkdir -p generated
+cd generated
+cp ../${the_big_mup} .
+the_big_mup="$(${READLINK} -f "${the_big_mup}")"
+
+remove-hidden.py "${the_big_mup}" || die
+remove-numbered-ids.py "${the_big_mup}" || die
+remove-evita.py "${the_big_mup}" || die
+add-numbered-ids.py "${the_big_mup}" || die
+add-evita.py --safety-privacy-financial-operational "${the_big_mup}" || die
+
+cat ../Front_Matter.md | resolve-stdin.py         "${the_big_mup}" >  TARA\ Content.md || die
+generate-descriptions-md-template --for-pandoc --no-attack-classification --auto-attack-threat --mitigations-as-nodes --keep-mitigations-in-snapshots "${the_big_mup}" \
+                                                                   >> TARA\ Content.md || die
+cat ../Mitigations_Preamble.md | resolve-stdin.py "${the_big_mup}" >> TARA\ Content.md || die
+generate-evita-chart.py "${the_big_mup}"                           >> TARA\ Content.md || die
+cat ../Back_Matter.md | resolve-stdin.py          "${the_big_mup}" >> TARA\ Content.md || die
+
+find . -name '*.mup' | parallel -k cd {//} \; rendermup {/} --width=600 -r || die
+
+sed -e 's/\.png)/.svg)/g' -i '' TARA\ Content.md
+ir.docxo TARA\ Content.md || die
+cp TARA\ Content.html ../Security_in_HD_Forensics_TARA_Report.html
+
+WIDTH=2700
+
+expand-all.py "${the_big_mup}"
+rendermup     "${the_big_mup}" --width=${WIDTH} || die
+
+collapse-subtrees.py "${the_big_mup}"
+collapse-objectives.py "${the_big_mup}"
+cp ../Attack_Tree.md Security_in_HD_Forensics_Interactive_Tree.md
+ir.docxo "Security_in_HD_Forensics_Interactive_Tree.md" -H ../Attack_Tree_Header.html -B ../Attack_Tree_Before.html -A ../Attack_Tree_After.html
+
+render_mup.js "${the_big_mup}" Security_in_HD_Forensics_Interactive_Tree.html --width=${WIDTH} || die
+
+cp Security_in_HD_Forensics_Interactive_Tree.html ../Security_in_HD_Forensics_Interactive_Tree.html
+
+cd ..
