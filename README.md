@@ -7,4 +7,4 @@ There are a few useful companion files on this site, namely:
 * [an archive of the DDEC records and example tampering discussed in the esCAR presentation](DDEC_Example.zip)
 * [a preprint of the paper](Security_in_HD_Forensics.pdf)
 
-The interactive attack tree and report will only render correctly if viewed through the [github-pages view](https://irdetoservices.github.io/cybersecurity-for-hvedr_companion/)
+The interactive attack tree and report will only render correctly if viewed through the [github-pages view](https://Heavy-Vehicle-Networking-At-U-Tulsa.github.io/CybersecurityForHVDERs/)
