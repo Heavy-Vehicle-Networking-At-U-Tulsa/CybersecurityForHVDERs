@@ -10,4 +10,4 @@ header-include: Attack_Tree_Header.html
 
 ### Attack Tree
 
-This is an interactive rendering on the entire attack tree; all likehoods are rendered as color-coded edges in the graph, both collpased nodes and reference nodes are clickable to expand the subtree or jump to the referent subtree, respectively. The `a` key will expand the entire tree.
+This is an interactive rendering on the entire attack tree; all likehoods are rendered as color-coded edges in the graph, both collapsed nodes and reference nodes are clickable to expand the subtree or jump to the referent subtree, respectively. The `a` key will expand the entire tree.
