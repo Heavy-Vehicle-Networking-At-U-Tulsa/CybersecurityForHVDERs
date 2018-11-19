@@ -200,19 +200,66 @@
                                           },
                                           "ideas": {
                                             "1": {
-                                              "title": "Discover, Develop Abuse Command or Exploit Payload to Connected Module",
-                                              "attr": {
-                                                "attachment": {
-                                                  "content": "<div><div class=\"page\" title=\"Page 4\">The subject of discovering and developing exploits (or abuses) for a connected system is very broad and complex. Accurately modelling it and discussing justifications for the model would consume the pages of this analysis and then some. To keep the focus of this analysis on the subject of corruptions of EDR records we will simplify this subject to a single event and provide a conservative estimate of it's attacker difficulty.&nbsp;</div></div><div><br></div><div>Generally speaking, to successfully discover and develop exploits or abuses of connected systems, attackers will need to have a large amount of time, specialized skills and access to the implementation details of the target (which we will model as knowledge of the system). The attackers also will need some access to the inputs of the system to effect their attack -- which we model in a separate event.</div><div><br></div>EVITA:: |0|0|0|0|10|6|3|0|0",
-                                                  "contentType": "text/html"
-                                                },
-                                                "style": {
-                                                  "background": "#708090"
-                                                }
-                                              },
+                                              "title": "AND",
                                               "ideas": {
                                                 "1": {
-                                                  "title": "Mitigation: (Connected Vehicle Systems SW) Make Connected Systems Software More Resilient",
+                                                  "title": "Discover, Develop Abuse Command or Exploit Payload to Connected Module",
+                                                  "attr": {
+                                                    "attachment": {
+                                                      "content": "<div><div class=\"page\" title=\"Page 4\">The subject of discovering and developing exploits (or abuses) for a connected system is very broad and complex. Accurately modelling it and discussing justifications for the model would consume the pages of this analysis and then some. To keep the focus of this analysis on the subject of corruptions of EDR records we will simplify this subject to a single event and provide a conservative estimate of it's attacker difficulty.&nbsp;</div></div><div><br></div><div>Generally speaking, to successfully discover and develop exploits or abuses of connected systems, attackers will need to have a large amount of time, specialized skills and access to the implementation details of the target (which we will model as knowledge of the system). The attackers also will need some access to the inputs of the system to effect their attack -- which we model in a separate event.</div><div><br></div>EVITA:: |0|0|0|0|10|6|3|0|0",
+                                                      "contentType": "text/html"
+                                                    },
+                                                    "style": {
+                                                      "background": "#708090"
+                                                    }
+                                                  },
+                                                  "ideas": {
+                                                    "1": {
+                                                      "title": "Mitigation: (Connected Vehicle Systems SW) Make Connected Systems Software More Resilient",
+                                                      "attr": {
+                                                        "attachment": {
+                                                          "content": "",
+                                                          "contentType": "text/html"
+                                                        },
+                                                        "style": {
+                                                          "background": "#008000"
+                                                        }
+                                                      },
+                                                      "id": 490
+                                                    }
+                                                  },
+                                                  "id": 489
+                                                },
+                                                "2": {
+                                                  "title": "Send Command or Payload to Connected Module",
+                                                  "attr": {
+                                                    "attachment": {
+                                                      "content": "<div><div class=\"page\" title=\"Page 4\">Sending data to a connected component of a vehicle system typically (assuming no mitigations have been put in place) does not require much time, expertise or special knowledge. It does, however, typically require some special access which we will model as a window of opportunity factor. And there will be specialized equipment necessary (e.g. for cell networks).</div></div><div class=\"page\" title=\"Page 4\"><br></div>EVITA:: |0|0|0|0|1|3|0|4|4",
+                                                      "contentType": "text/html"
+                                                    },
+                                                    "style": {
+                                                      "background": "#708090"
+                                                    }
+                                                  },
+                                                  "ideas": {
+                                                    "1": {
+                                                      "title": "Mitigation: (Connected Vehicle Systems) Restrict Access to Connected Module Remote Networks",
+                                                      "attr": {
+                                                        "attachment": {
+                                                          "content": "",
+                                                          "contentType": "text/html"
+                                                        },
+                                                        "style": {
+                                                          "background": "#008000"
+                                                        }
+                                                      },
+                                                      "id": 492
+                                                    }
+                                                  },
+                                                  "id": 491
+                                                },
+                                                "3": {
+                                                  "title": "Mitigation: (Connected Vehicle Systems SW) Includes Security Requirements to Prevent Sending Vehicle Network Traffic via Abuse or Exploitation of Connected Module SW",
                                                   "attr": {
                                                     "attachment": {
                                                       "content": "",
@@ -222,51 +269,10 @@
                                                       "background": "#008000"
                                                     }
                                                   },
-                                                  "id": 490
+                                                  "id": 540
                                                 }
                                               },
-                                              "id": 489
-                                            },
-                                            "2": {
-                                              "title": "Send Command or Payload to Connected Module",
-                                              "attr": {
-                                                "attachment": {
-                                                  "content": "<div><div class=\"page\" title=\"Page 4\">Sending data to a connected component of a vehicle system typically (assuming no mitigations have been put in place) does not require much time, expertise or special knowledge. It does, however, typically require some special access which we will model as a window of opportunity factor. And there will be specialized equipment necessary (e.g. for cell networks).</div></div><div class=\"page\" title=\"Page 4\"><br></div>EVITA:: |0|0|0|0|1|3|0|4|4",
-                                                  "contentType": "text/html"
-                                                },
-                                                "style": {
-                                                  "background": "#708090"
-                                                }
-                                              },
-                                              "ideas": {
-                                                "1": {
-                                                  "title": "Mitigation: (Connected Vehicle Systems) Restrict Access to Connected Module Remote Networks",
-                                                  "attr": {
-                                                    "attachment": {
-                                                      "content": "",
-                                                      "contentType": "text/html"
-                                                    },
-                                                    "style": {
-                                                      "background": "#008000"
-                                                    }
-                                                  },
-                                                  "id": 492
-                                                }
-                                              },
-                                              "id": 491
-                                            },
-                                            "3": {
-                                              "title": "Mitigation: (Connected Vehicle Systems SW) Includes Security Requirements to Prevent Sending Vehicle Network Traffic via Abuse or Exploitation of Connected Module SW",
-                                              "attr": {
-                                                "attachment": {
-                                                  "content": "",
-                                                  "contentType": "text/html"
-                                                },
-                                                "style": {
-                                                  "background": "#008000"
-                                                }
-                                              },
-                                              "id": 540
+                                              "id": 713
                                             }
                                           },
                                           "id": 488
